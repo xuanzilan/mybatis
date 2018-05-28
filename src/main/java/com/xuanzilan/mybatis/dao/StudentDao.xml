@@ -6,4 +6,42 @@
         insert into student(name,age,store)
         values (#{name},#{age},#{store})
     </insert>
+
+    <insert id="insertStudentCacheId" parameterType="Student">
+        /*order属性在mybatis正常使用是可以省略的，在注解式开发中则必须指定：
+        Mysql在进行插入操作时，先执行插入后生成id，所以order应设置为AFTER；
+        Orcal在进行插入操作时，先生成id再插入数据，所以order应设置为BEFORE。*/
+        insert into student(name,age,store)
+        values (#{name},#{age},#{store})
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            select @@identity
+        </selectKey>
+    </insert>
+
+    <delete id="deleteStudentById" parameterType="int">
+        delete  from student
+        where id = #{id}
+    </delete>
+
+    <update id="updateStudent" parameterType="Student">
+        update student
+        set name = #{name},age = #{age}, store = #{store}
+        where id = #{id}
+    </update>
+
+    <select id="selectAllStudents" resultType ="Student">
+        select * from student
+    </select>
+
+    <select id="selectStudentById" parameterType="int" resultType ="Student">
+        select * from student
+        where id = #{id}
+    </select>
+
+
+    <select id="selectStudentsByName" resultType ="Student">
+         <!-- select * from student where name like '%${value}%'   不常用，存在sql注入风险，相当于字符串拼接，效率低 -->
+        <!-- select * from student where name like concat('%',#{name},'%')   也比较常用，但不如下面那个更常用和简单 -->
+     select * from student where name like '%' #{name} '%'
+   </select>
 </mapper>
