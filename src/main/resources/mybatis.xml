@@ -3,7 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!--配置db配置文件-->
     <properties resource="db.properties"></properties>
+
+    <!--配置别名-->
+    <typeAliases>
+        <!--根据类名进行别名-->
+        <!--<typeAlias type="com.xuanzilan.mybatis.beans.Student"></typeAlias>-->
+
+        <!--利用包名进行配置-->
+        <package name="com.xuanzilan.mybatis.beans"></package>
+    </typeAliases>
+
     <environments default="TestEM">
         <environment id="TestEM">
             <transactionManager type="JDBC"></transactionManager>
