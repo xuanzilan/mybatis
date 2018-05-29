@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xuanzilan.mybatis.dao.IStudentDao">
+    <sql id="selectAll">
+        id,name,age,store
+    </sql>
+
     <insert id="insertStudent" parameterType="Student">
         insert into student(name,age,store)
         values (#{name},#{age},#{store})
@@ -30,11 +34,13 @@
     </update>
 
     <select id="selectAllStudents" resultType ="Student">
-        select * from student
+        select <include refid="selectAll"></include>
+        from student
     </select>
 
     <select id="selectStudentById" parameterType="int" resultType ="Student">
-        select * from student
+        select <include refid="selectAll"></include>
+        from student
         where id = #{id}
     </select>
 
@@ -42,6 +48,7 @@
     <select id="selectStudentsByName" resultType ="Student">
          <!-- select * from student where name like '%${value}%'   不常用，存在sql注入风险，相当于字符串拼接，效率低 -->
         <!-- select * from student where name like concat('%',#{name},'%')   也比较常用，但不如下面那个更常用和简单 -->
-     select * from student where name like '%' #{name} '%'
+     select <include refid="selectAll"></include>
+        from student where name like '%' #{name} '%'
    </select>
 </mapper>
