@@ -28,6 +28,10 @@
     </environments>
 
     <mappers>
-        <mapper resource="com/xuanzilan/mybatis/dao/StudentDao.xml"></mapper>
+        <!--package这种方式必须保证接口名（例如IUserDao）和xml名（IUserDao.xml）相同，还必须在同一个包中。-->
+        <!--<package name="com.xuanzilan.mybatis.dao.impl"></package>-->
+
+        <mapper resource="com/xuanzilan/mybatis/dao/impl/AssociateDao.xml"></mapper>
+        <mapper resource="com/xuanzilan/mybatis/dao/impl/StudentDao.xml"></mapper>
     </mappers>
 </configuration>

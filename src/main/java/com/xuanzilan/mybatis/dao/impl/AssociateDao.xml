@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuanzilan.mybatis.dao.IAssociateDao">
+    <sql id="countryParams">
+        cid,cname
+    </sql>
+
+    <sql id="ministerParams">
+        mid,mname,cid
+    </sql>
+
+    <resultMap id="CountryResultMap" type="CountryWithMinister">
+        <id property="cid" column="cid"></id>
+        <result property="cname" column="cname"></result>
+        <collection property="list" ofType="Minister"
+                    column="cid" select="findMinisterByCid"/>
+    </resultMap>
+
+    <resultMap id="CountryResultMap2" type="CountryWithMinister">
+        <id property="cid" column="cid"></id>
+        <result property="cname" column="cname"></result>
+        <collection property="list" ofType="Minister">
+            <result property="mid" column="mid"/>
+            <result property="mname" column="mname"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="MinisterResultMap" type="MinisterWithCountry">
+        <id property="mid" column="mid"></id>
+        <result property="mname" column="mname"></result>
+        <result property="cid" column="cid"></result>
+        <association property="country" column="cid"
+                     javaType="Country" select="findCountryByCIdWithoutSet"/>
+    </resultMap>
+
+
+    <select id="findCountryByCId" parameterType="int" resultMap="CountryResultMap">
+        select <include refid="countryParams"/>
+        from country
+        where cid = #{cid}
+    </select>
+
+    <select id="findMinisterByCid" resultType="Minister" parameterType="int">
+        select <include refid="ministerParams"/>
+        from minister
+        where cid = #{cid}
+    </select>
+
+    <select id="findMinisterByMId" resultMap="MinisterResultMap" parameterType="int">
+        select <include refid="ministerParams"/>
+        from minister
+        where mid = #{mid}
+    </select>
+
+    <select id="findCountryByCIdWithoutSet" parameterType="int"  resultType="Country">
+        select <include refid="countryParams"/>
+        from country
+        where cid = #{cid}
+    </select>
+
+
+    <select id="findCountryByCId2" parameterType="int" resultMap="CountryResultMap2">
+        select country.cid,cname,mid,mname
+        from country,minister
+        where
+        country.cid = minister.cid
+        and country.cid = #{cid}
+    </select>
+</mapper>

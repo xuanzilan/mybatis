@@ -8,6 +8,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @author dengshaoheng
+ */
 public class DBUtil {
     private static SqlSessionFactory sqlSessionFactory=null;
 

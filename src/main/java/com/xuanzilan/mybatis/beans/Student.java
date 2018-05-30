@@ -1,5 +1,8 @@
 package com.xuanzilan.mybatis.beans;
 
+/**
+ * @author dengshaoheng
+ */
 public class Student {
     private Integer id;
     private String name;
