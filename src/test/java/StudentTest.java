@@ -87,14 +87,20 @@ public class StudentTest {
     @Test
     public void selectStudentById(){
         logger.info("selectStudentById");
-        Student student  = dao.selectStudentById(16);
+        Student student  = dao.selectStudentById(13);
+        dao.selectStudentById(14);
+        sqlSession.close();
+        sqlSession = DBUtil.getSqlSession();
+        dao = sqlSession.getMapper(IStudentDao.class);
+        dao.selectStudentById(13);
         logger.info("student="+student);
     }
 
     @Test
     public void selectStudentsByName(){
-        logger.info("selectStudentsByName");
-        List<Student> students = dao.selectStudentsByName("吴七");
-        logger.info(students.size());
+//        logger.info("selectStudentsByName");
+//        List<Student> students = dao.selectStudentsByName("吴七");
+        dao.selectStudentById(13);
+//        logger.info(students.size());
     }
 }

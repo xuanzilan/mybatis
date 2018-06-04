@@ -34,7 +34,9 @@ public class AssociateTest {
     @Test
     public void findCountryByCId(){
         CountryWithMinister country =  dao.findCountryByCId(1);
-        logger.info(country);
+        logger.info(country.getList());
+        CountryWithMinister country1 =  dao.findCountryByCId(1);
+        logger.info(country1.getList());
     }
 
     /**

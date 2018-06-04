@@ -1,9 +1,11 @@
 package com.xuanzilan.mybatis.beans;
 
+import java.io.Serializable;
+
 /**
  * @author dengshaoheng
  */
-public class Student {
+public class Student implements Serializable {
     private Integer id;
     private String name;
     private int age;

@@ -3,8 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
     <!--配置db配置文件-->
     <properties resource="db.properties"></properties>
+
+    <settings>
+        <!--注意，从mybatis中文api文档中复制的setting属性末尾带空格，坑啊-->
+
+        <!--开启延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--开启侵入式延迟加载，当只配置上面延迟开关时，模式是开启的深度延迟-->
+        <!--<setting name="aggressiveLazyLoading" value="true"/>-->
+
+        <!--开启二级缓存（注意Mybatis中的一级缓存是默认打开的）-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
 
     <!--配置别名-->
     <typeAliases>
